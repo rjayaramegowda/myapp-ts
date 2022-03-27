@@ -1,18 +1,22 @@
 import React from 'react';
+import { add } from './helper';
 
-function App() {
+interface myvo {
+  a:number,
+  b:number
+}
+
+function App(props:myvo) {
   return (
     <div className="container">
-     <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+     <button data-testid="custom-element" className='btn btn-primary'>
+       Learn React
+     </button>
+     <p>{add(props.a, props.b)}</p>
     </div>
   );
 }
+
+
 
 export default App;
