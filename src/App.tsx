@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 function App() {
+  useEffect(() => {
+    console.log("init()");
+  }, []);
   return (
     <div className="container">
      <a
