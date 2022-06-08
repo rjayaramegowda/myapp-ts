@@ -1,19 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from "react";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 function App() {
+  const [rememberMe, setRememberMe] = useState(false);
+
   useEffect(() => {
-    console.log("init()");
+    const rememberMeDefault = cookies.get("rememberMe")==='true'
+      ? true
+      : false;
+    console.log("rememberMeDefault = ", rememberMeDefault);
+    setRememberMe(rememberMeDefault);
   }, []);
+
+  function handleChange() {
+    setRememberMe(!rememberMe);
+    cookies.set('rememberMe', !rememberMe, { path: '/' });
+  }
+
   return (
     <div className="container">
-     <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <div className="form-check">
+        <input
+          type="checkbox"
+          className="form-check-input"
+          id="exampleCheck1"
+          checked={rememberMe}
+          onChange={handleChange}
+        />
+        <label className="form-check-label" htmlFor="exampleCheck1">
+        Remember me
+        </label>
+      </div>
     </div>
   );
 }
