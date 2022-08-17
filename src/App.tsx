@@ -1,20 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
+import { Container } from "react-bootstrap";
 
 function App() {
   useEffect(() => {
     console.log("init()");
   }, []);
   return (
-    <div className="container">
-     <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-    </div>
+    <Container>
+      <h1>React Bootstrap</h1>
+    </Container>
   );
 }
 
