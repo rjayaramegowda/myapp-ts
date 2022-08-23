@@ -5,9 +5,14 @@ import en from "date-fns/locale/en-GB";
 import "react-datepicker/dist/react-datepicker.css";
 import { format, setMonth } from "date-fns";
 
-const DropdownDOB = (props) => {
-  const [today, setToday] = useState(new Date());
-  const [dob, setDob] = useState();
+type Props = {
+  name: string;
+}
+
+const DropdownDOB : React.FC<Props> = ({name}) => {
+  const [today, setToday] = useState<Date | undefined>();
+  const [dob, setDob] = useState<string | number | string[] | undefined>('');
+
 
   const months = new Array(12).fill(null).map((_, i) => ({
     value: i,
@@ -17,24 +22,22 @@ const DropdownDOB = (props) => {
   }));
 
   const years = new Array(70).fill(null).map((_, i) => 1940 + i);
-  const days = new Array(30).fill(null).map((_, i) => 1 + i);
+  const days = new Array(31).fill(null).map((_, i) => 1 + i);
 
-  const handleYearChange = ({ target: { value } }) => {
-    setToday(new Date(today.setFullYear(value)));
-    setDob(today.toISOString().split("T")[0]);
+  const handleYearChange = (e:any) => {
+    setToday(new Date(today ? today.setFullYear(e.target.value) : 0) || '');
+    setDob(today ? today.toISOString().split("T")[0] : '');
   };
 
-  const handleMonthChange = ({ target: { value } }) => {
-    setToday(new Date(today.setMonth(value)));
-    setDob(today.toISOString().split("T")[0]);
+  const handleMonthChange = (e:any) => {
+    setToday(new Date(today ? today.setMonth(e.target.value) : 0) || '');
+    setDob(today ? today.toISOString().split("T")[0] : '');
   };
 
-  const handleDateChange = ({ target: { value } }) => {
-    setToday(new Date(today.setDate(value)));
-    setDob(today.toISOString().split("T")[0]);
+  const handleDateChange =  (e:any) => {
+    setToday(new Date(today ? today.setDate(e.target.value) : 0) || '');
+    setDob(today ? today.toISOString().split("T")[0] : '');
   };
-
-  const dateHandler = ({ target: { value } }) => setDob(value);
 
   return (
     <Row className="g-1 my-5" style={{ maxWidth: 400 }}>
@@ -46,11 +49,7 @@ const DropdownDOB = (props) => {
               {label}
             </option>
           ))}
-
         </select>
-        <div class="invalid-feedback">
-      Please select a valid state.
-    </div>
       </Col>
       <Col sm="3">
         <select className="form-select" onChange={handleDateChange} required>
@@ -72,12 +71,11 @@ const DropdownDOB = (props) => {
           ))}
         </select>
       </Col>
-      <Col sm="12 mt-2">
+      <Col sm="12">
         <FormControl
           value={dob}
           type="date"
-          name={props.name}
-          onChange={dateHandler}
+          name={name}
         />
       </Col>
     </Row>
