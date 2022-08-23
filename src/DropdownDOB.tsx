@@ -73,6 +73,7 @@ const DropdownDOB : React.FC<Props> = ({name}) => {
       </Col>
       <Col sm="12">
         <FormControl
+          className="d-none"
           value={dob}
           type="date"
           name={name}
