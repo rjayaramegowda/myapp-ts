@@ -1,14 +1,14 @@
-import React from "react";
-import { Col, Row } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Col, FormControl, Row } from "react-bootstrap";
 
 import en from 'date-fns/locale/en-GB';
-
 import 'react-datepicker/dist/react-datepicker.css';
+import { format, setMonth } from 'date-fns';
 
-import { format, setMonth, getMonth, getYear } from 'date-fns';
+const DropdownDOB = () => {
+  const [today, setToday] = useState(new Date());
+  const [dob, setDob] = useState(today.toISOString().split("T")[0]);
 
-
-const CustomHeader = ({ date, changeMonth, changeYear }) => {
   const months = new Array(12).fill(null).map((_, i) => ({
     value: i,
     label: format(setMonth(new Date(), i), 'MMMM', {
@@ -19,15 +19,23 @@ const CustomHeader = ({ date, changeMonth, changeYear }) => {
   const years = new Array(70).fill(null).map((_, i) => 1940 + i);
   const days = new Array(30).fill(null).map((_, i) => 1 + i);
 
+  const handleYearChange = ({ target: { value } }) => {
+    setToday(new Date(today.setFullYear(value)));
+    setDob(today.toISOString().split("T")[0]);
+  }
 
-  const handleYearChange = ({ target: { value } }) => changeYear(value);
-  const handleMonthChange = ({ target: { value } }) => changeMonth(value);
+  const handleMonthChange = ({ target: { value } }) => {
+    setToday(new Date(today.setMonth(value)));
+    setDob(today.toISOString().split("T")[0]);
+  }
+
+  const dateHandler = ({target: {value}}) => setDob(value);
 
   return (
-    <Row className="g-1" style={{maxWidth:400}}>
+    <Row className="g-1 my-5" style={{maxWidth:400}}>
 
         <Col  sm="5">
-        <select className='form-select'>
+        <select className='form-select' onChange={handleMonthChange}>
         {months.map(({ value, label }) => (
           <option value={value} key={value}>
             {label}
@@ -45,7 +53,7 @@ const CustomHeader = ({ date, changeMonth, changeYear }) => {
       </select>
         </Col>
         <Col  sm="4">
-        <select className='form-select' >
+        <select className='form-select' onChange={handleYearChange}>
         {years.map(year => (
           <option value={year} key={year}>
             {year}
@@ -53,18 +61,12 @@ const CustomHeader = ({ date, changeMonth, changeYear }) => {
         ))}
       </select>
         </Col>
+        <Col  sm="12 mt-2">
+          <FormControl value={dob} type="date" name="dob" onChange={dateHandler} />
+          </Col>
       </Row>
   );
 };
 
-function DropdownDOB() {
-
-  const changeMonth = () => console.log('change month');
-  const changeYear = () => console.log('change year');
-
-  return (
-    <CustomHeader date={new Date()} changeMonth={changeMonth} changeYear={changeYear} />
-  );
-}
 
 export default DropdownDOB;
