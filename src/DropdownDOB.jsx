@@ -5,7 +5,7 @@ import en from "date-fns/locale/en-GB";
 import "react-datepicker/dist/react-datepicker.css";
 import { format, setMonth } from "date-fns";
 
-const DropdownDOB = () => {
+const DropdownDOB = (props) => {
   const [today, setToday] = useState(new Date());
   const [dob, setDob] = useState();
 
@@ -76,7 +76,7 @@ const DropdownDOB = () => {
         <FormControl
           value={dob}
           type="date"
-          name="dob"
+          name={props.name}
           onChange={dateHandler}
         />
       </Col>

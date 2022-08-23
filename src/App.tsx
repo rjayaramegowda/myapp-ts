@@ -10,7 +10,7 @@ function App() {
     <Container>
       <h1>React Bootstrap</h1>
       <form action="submit-form.php">
-        <DropdownDOB />
+        <DropdownDOB name="dob1" />
         <Button type="submit">Submit</Button>
       </form>
     </Container>
