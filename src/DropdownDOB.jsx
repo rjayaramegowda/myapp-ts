@@ -39,16 +39,22 @@ const DropdownDOB = () => {
   return (
     <Row className="g-1 my-5" style={{ maxWidth: 400 }}>
       <Col sm="5">
-        <select className="form-select" onChange={handleMonthChange}>
+        <select className="form-select" onChange={handleMonthChange} required>
+        <option value=''>Month</option>
           {months.map(({ value, label }) => (
             <option value={value} key={value}>
               {label}
             </option>
           ))}
+
         </select>
+        <div class="invalid-feedback">
+      Please select a valid state.
+    </div>
       </Col>
       <Col sm="3">
-        <select className="form-select" onChange={handleDateChange}>
+        <select className="form-select" onChange={handleDateChange} required>
+        <option value=''>Day</option>
           {days.map((day) => (
             <option value={day} key={day}>
               {day}
@@ -57,7 +63,8 @@ const DropdownDOB = () => {
         </select>
       </Col>
       <Col sm="4">
-        <select className="form-select" onChange={handleYearChange}>
+        <select className="form-select" onChange={handleYearChange} required>
+        <option value=''>Year</option>
           {years.map((year) => (
             <option value={year} key={year}>
               {year}
