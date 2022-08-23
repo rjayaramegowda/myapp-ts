@@ -24,18 +24,18 @@ const DropdownDOB : React.FC<Props> = ({name}) => {
   const years = new Array(70).fill(null).map((_, i) => 1940 + i);
   const days = new Array(31).fill(null).map((_, i) => 1 + i);
 
-  const handleYearChange = (e:any) => {
-    setToday(new Date(today ? today.setFullYear(e.target.value) : 0) || '');
+  const handleYearChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
+    setToday(new Date(today ? today.setFullYear(parseInt(e.target.value)) : 0) || '');
     setDob(today ? today.toISOString().split("T")[0] : '');
   };
 
-  const handleMonthChange = (e:any) => {
-    setToday(new Date(today ? today.setMonth(e.target.value) : 0) || '');
+  const handleMonthChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
+    setToday(new Date(today ? today.setMonth(parseInt(e.target.value)) : 0) || '');
     setDob(today ? today.toISOString().split("T")[0] : '');
   };
 
-  const handleDateChange =  (e:any) => {
-    setToday(new Date(today ? today.setDate(e.target.value) : 0) || '');
+  const handleDateChange =  (e:React.ChangeEvent<HTMLSelectElement>) => {
+    setToday(new Date(today ? today.setDate(parseInt(e.target.value)) : 0) || '');
     setDob(today ? today.toISOString().split("T")[0] : '');
   };
 
