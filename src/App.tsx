@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import { Container } from "react-bootstrap";
-import DateFieldDD from "./com/DateFieldDD";
-import Example from "./Example";
+import { Button, Col, Container, FormControl, Row } from "react-bootstrap";
+import DropdownDOB from "./DropdownDOB";
 
 function App() {
   useEffect(() => {
@@ -10,7 +9,10 @@ function App() {
   return (
     <Container>
       <h1>React Bootstrap</h1>
-      <DateFieldDD />
+      <form action="submit-form.php">
+        <DropdownDOB />
+        <Button type="submit">Submit</Button>
+      </form>
     </Container>
   );
 }
