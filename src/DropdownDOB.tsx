@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { Col, FormControl, Row } from "react-bootstrap";
-
 import en from "date-fns/locale/en-GB";
 import "react-datepicker/dist/react-datepicker.css";
 import { format, setMonth } from "date-fns";
 
 type Props = {
   name: string;
+  start:number;
+  max:number;
 }
 
-const DropdownDOB : React.FC<Props> = ({name}) => {
+
+const DropdownDOB : React.FC<Props> = ({name, start, max}) => {
   const [today, setToday] = useState<Date | undefined>();
   const [dob, setDob] = useState<string | number | string[] | undefined>('');
-
 
   const months = new Array(12).fill(null).map((_, i) => ({
     value: i,
@@ -21,7 +22,7 @@ const DropdownDOB : React.FC<Props> = ({name}) => {
     }),
   }));
 
-  const years = new Array(70).fill(null).map((_, i) => 1940 + i);
+  const years = new Array(max).fill(null).map((_, i) => start + i);
   const days = new Array(31).fill(null).map((_, i) => 1 + i);
 
   const handleYearChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
@@ -40,8 +41,8 @@ const DropdownDOB : React.FC<Props> = ({name}) => {
   };
 
   return (
-    <Row className="g-1 my-5" style={{ maxWidth: 400 }}>
-      <Col sm="5">
+    <Row className="g-2">
+      <Col sm="4">
         <select className="form-select" onChange={handleMonthChange} required>
         <option value=''>Month</option>
           {months.map(({ value, label }) => (
@@ -50,8 +51,11 @@ const DropdownDOB : React.FC<Props> = ({name}) => {
             </option>
           ))}
         </select>
+        <FormControl.Feedback type="invalid">
+              Field is required
+          </FormControl.Feedback>
       </Col>
-      <Col sm="3">
+      <Col sm="4">
         <select className="form-select" onChange={handleDateChange} required>
         <option value=''>Day</option>
           {days.map((day) => (
@@ -60,6 +64,9 @@ const DropdownDOB : React.FC<Props> = ({name}) => {
             </option>
           ))}
         </select>
+        <FormControl.Feedback type="invalid">
+              Field is required
+        </FormControl.Feedback>
       </Col>
       <Col sm="4">
         <select className="form-select" onChange={handleYearChange} required>
@@ -70,6 +77,9 @@ const DropdownDOB : React.FC<Props> = ({name}) => {
             </option>
           ))}
         </select>
+        <FormControl.Feedback type="invalid">
+              Field is required
+        </FormControl.Feedback>
       </Col>
       <Col sm="12">
         <FormControl
