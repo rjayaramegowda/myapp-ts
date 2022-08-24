@@ -10,7 +10,10 @@ type Props = {
 };
 
 const Datepicker: React.FC<Props> = ({ name, min, max, value }) => {
-  const [selectedDa, setSelectedDa] = useState<Date | null>();
+  const [selectedDa, setSelectedDa] = useState<Date | null>(
+    new Date(value) || null
+  );
+  const [selectedValue, setSelectedValue] = useState("");
 
   useEffect(() => {
     document
@@ -24,6 +27,7 @@ const Datepicker: React.FC<Props> = ({ name, min, max, value }) => {
   function onDateChange(date: Date | null) {
     if (date) {
       setSelectedDa(date);
+      setSelectedValue(date.toISOString().split("T")[0]);
     }
   }
 
@@ -36,7 +40,16 @@ const Datepicker: React.FC<Props> = ({ name, min, max, value }) => {
         selectedDate={selectedDa}
         onDateChange={onDateChange}
       />
-      <FormControl className="d-none" required type="date" name="dob" />
+      <FormControl
+        className="d-none"
+        value={selectedValue}
+        required
+        type="date"
+        name={name}
+      />
+      <FormControl.Feedback type="invalid">
+        Field is required
+      </FormControl.Feedback>
     </>
   );
 };

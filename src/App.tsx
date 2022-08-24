@@ -10,19 +10,13 @@ function App() {
         <Row>
           <Col md="12">
             <h1>React Bootstrap</h1>
-            <DropdownDOB
-              value="2021-05-07"
-              min="2020-05-07"
-              max="2022-05-07"
-              name="dateOfBirth"
-            />
           </Col>
           <Col md="12">
             <Datepicker
               value="2021-05-07"
               min="2020-05-07"
               max="2022-05-07"
-              name=""
+              name="dob"
             />
           </Col>
 
