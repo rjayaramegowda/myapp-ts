@@ -19,7 +19,6 @@ const DropdownDOB: React.FC<Props> = ({ name, min, max, value }) => {
   const [today, setToday] = useState<Date | undefined>();
   const [dob, setDob] = useState<string | number | string[] | undefined>(value);
   const defaultValues: string[] = value ? value.split("-") : [];
-  console.log("defaultValues = ", defaultValues[1]);
 
   const months = new Array(12).fill(null).map((_, i) => ({
     value: i,
@@ -112,11 +111,12 @@ const DropdownDOB: React.FC<Props> = ({ name, min, max, value }) => {
       </Col>
       <Col sm="12">
         <FormControl
-          id="dob"
-          className="mb-3"
+          className="mb-2"
           value={dob}
           type="date"
           name={name}
+          min={min}
+          max={max}
         />
       </Col>
     </Row>
