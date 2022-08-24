@@ -14,7 +14,7 @@ type Props = {
 const DropdownDOB: React.FC<Props> = ({ name, min, max, value }) => {
   let maxYears: number =
     new Date(max).getFullYear() - new Date(min).getFullYear();
-  maxYears = maxYears > 0 ? maxYears : 1;
+  maxYears = maxYears > 0 ? maxYears + 1 : 1;
   const startYear = new Date(min).getFullYear();
   const [today, setToday] = useState<Date | undefined>();
   const [dob, setDob] = useState<string | number | string[] | undefined>(value);
@@ -60,7 +60,7 @@ const DropdownDOB: React.FC<Props> = ({ name, min, max, value }) => {
           onChange={handleMonthChange}
           required
           defaultValue={
-            defaultValues.length > 2 ? parseInt(defaultValues[0]) - 1 : ""
+            defaultValues.length > 2 ? parseInt(defaultValues[1]) - 1 : ""
           }
         >
           <option value="">Month</option>
@@ -112,7 +112,8 @@ const DropdownDOB: React.FC<Props> = ({ name, min, max, value }) => {
       </Col>
       <Col sm="12">
         <FormControl
-          className="d-none"
+          id="dob"
+          className="mb-3"
           value={dob}
           type="date"
           name={name}
