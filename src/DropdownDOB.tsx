@@ -16,7 +16,7 @@ const DropdownDOB: React.FC<Props> = ({ name, min, max, value }) => {
     new Date(max).getFullYear() - new Date(min).getFullYear();
   maxYears = maxYears > 0 ? maxYears + 1 : 1;
   const startYear = new Date(min).getFullYear();
-  const [today, setToday] = useState<Date | undefined>();
+  const [today, setToday] = useState<Date | undefined>(new Date(value || ""));
   const [dob, setDob] = useState<string | number | string[] | undefined>(value);
   const defaultValues: string[] = value ? value.split("-") : [];
 
