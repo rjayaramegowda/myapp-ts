@@ -10,9 +10,8 @@ type Props = {
 };
 
 const Datepicker: React.FC<Props> = ({ name, min, max, value }) => {
-  const [selectedDa, setSelectedDa] = useState<Date | null>(
-    new Date(value) || null
-  );
+  const defaultDate: Date | null = value ? new Date(value) : null;
+  const [selectedDay, setSelectedDay] = useState<Date | null>(defaultDate);
   const [selectedValue, setSelectedValue] = useState("");
 
   useEffect(() => {
@@ -26,7 +25,7 @@ const Datepicker: React.FC<Props> = ({ name, min, max, value }) => {
 
   function onDateChange(date: Date | null) {
     if (date) {
-      setSelectedDa(date);
+      setSelectedDay(date);
       setSelectedValue(date.toISOString().split("T")[0]);
     }
   }
@@ -37,7 +36,7 @@ const Datepicker: React.FC<Props> = ({ name, min, max, value }) => {
         maxDate={new Date(max)}
         minDate={new Date(min)}
         hideLabels
-        selectedDate={selectedDa}
+        selectedDate={selectedDay}
         onDateChange={onDateChange}
       />
       <FormControl

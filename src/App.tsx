@@ -12,15 +12,10 @@ function App() {
             <h1>React Bootstrap</h1>
           </Col>
           <Col md="12">
-            <Datepicker
-              value="2021-05-07"
-              min="2020-05-07"
-              max="2022-05-07"
-              name="dob"
-            />
+            <Datepicker min="2020-05-07" max="2022-05-07" name="dob" />
           </Col>
 
-          <Col className="mt-5" md="12">
+          <Col className="mt-1" md="12">
             <Button type="submit">Submit</Button>
           </Col>
         </Row>
