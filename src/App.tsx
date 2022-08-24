@@ -11,7 +11,12 @@ function App() {
     <Container>
       <h1>React Bootstrap</h1>
       <form action="submit-form.php">
-      <DropdownDOB start={1901} max={97} name="dateOfBirth" />
+        <DropdownDOB
+          value="2001-05-22"
+          min="2000-07-22"
+          max="2022-07-22"
+          name="dateOfBirth"
+        />
         <Button type="submit">Submit</Button>
       </form>
     </Container>

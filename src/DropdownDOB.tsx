@@ -6,14 +6,20 @@ import { format, setMonth } from "date-fns";
 
 type Props = {
   name: string;
-  start:number;
-  max:number;
-}
+  min: string;
+  max: string;
+  value?: string;
+};
 
-
-const DropdownDOB : React.FC<Props> = ({name, start, max}) => {
+const DropdownDOB: React.FC<Props> = ({ name, min, max, value }) => {
+  let maxYears: number =
+    new Date(max).getFullYear() - new Date(min).getFullYear();
+  maxYears = maxYears > 0 ? maxYears : 1;
+  const startYear = new Date(min).getFullYear();
   const [today, setToday] = useState<Date | undefined>();
-  const [dob, setDob] = useState<string | number | string[] | undefined>('');
+  const [dob, setDob] = useState<string | number | string[] | undefined>(value);
+  const defaultValues: string[] = value ? value.split("-") : [];
+  console.log("defaultValues = ", defaultValues[1]);
 
   const months = new Array(12).fill(null).map((_, i) => ({
     value: i,
@@ -22,29 +28,42 @@ const DropdownDOB : React.FC<Props> = ({name, start, max}) => {
     }),
   }));
 
-  const years = new Array(max).fill(null).map((_, i) => start + i);
+  const years = new Array(maxYears).fill(null).map((_, i) => startYear + i);
   const days = new Array(31).fill(null).map((_, i) => 1 + i);
 
-  const handleYearChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
-    setToday(new Date(today ? today.setFullYear(parseInt(e.target.value)) : 0) || '');
-    setDob(today ? today.toISOString().split("T")[0] : '');
+  const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setToday(
+      new Date(today ? today.setFullYear(parseInt(e.target.value)) : 0) || ""
+    );
+    setDob(today ? today.toISOString().split("T")[0] : "");
   };
 
-  const handleMonthChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
-    setToday(new Date(today ? today.setMonth(parseInt(e.target.value)) : 0) || '');
-    setDob(today ? today.toISOString().split("T")[0] : '');
+  const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setToday(
+      new Date(today ? today.setMonth(parseInt(e.target.value)) : 0) || ""
+    );
+    setDob(today ? today.toISOString().split("T")[0] : "");
   };
 
-  const handleDateChange =  (e:React.ChangeEvent<HTMLSelectElement>) => {
-    setToday(new Date(today ? today.setDate(parseInt(e.target.value)) : 0) || '');
-    setDob(today ? today.toISOString().split("T")[0] : '');
+  const handleDateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setToday(
+      new Date(today ? today.setDate(parseInt(e.target.value)) : 0) || ""
+    );
+    setDob(today ? today.toISOString().split("T")[0] : "");
   };
 
   return (
     <Row className="g-2">
       <Col sm="4">
-        <select className="form-select" onChange={handleMonthChange} required>
-        <option value=''>Month</option>
+        <select
+          className="form-select"
+          onChange={handleMonthChange}
+          required
+          defaultValue={
+            defaultValues.length > 2 ? parseInt(defaultValues[0]) - 1 : ""
+          }
+        >
+          <option value="">Month</option>
           {months.map(({ value, label }) => (
             <option value={value} key={value}>
               {label}
@@ -52,12 +71,17 @@ const DropdownDOB : React.FC<Props> = ({name, start, max}) => {
           ))}
         </select>
         <FormControl.Feedback type="invalid">
-              Field is required
-          </FormControl.Feedback>
+          Field is required
+        </FormControl.Feedback>
       </Col>
       <Col sm="4">
-        <select className="form-select" onChange={handleDateChange} required>
-        <option value=''>Day</option>
+        <select
+          defaultValue={defaultValues.length > 2 ? defaultValues[2] : ""}
+          className="form-select"
+          onChange={handleDateChange}
+          required
+        >
+          <option value="">Day</option>
           {days.map((day) => (
             <option value={day} key={day}>
               {day}
@@ -65,12 +89,17 @@ const DropdownDOB : React.FC<Props> = ({name, start, max}) => {
           ))}
         </select>
         <FormControl.Feedback type="invalid">
-              Field is required
+          Field is required
         </FormControl.Feedback>
       </Col>
       <Col sm="4">
-        <select className="form-select" onChange={handleYearChange} required>
-        <option value=''>Year</option>
+        <select
+          className="form-select"
+          onChange={handleYearChange}
+          required
+          defaultValue={defaultValues.length > 2 ? defaultValues[0] : ""}
+        >
+          <option value="">Year</option>
           {years.map((year) => (
             <option value={year} key={year}>
               {year}
@@ -78,7 +107,7 @@ const DropdownDOB : React.FC<Props> = ({name, start, max}) => {
           ))}
         </select>
         <FormControl.Feedback type="invalid">
-              Field is required
+          Field is required
         </FormControl.Feedback>
       </Col>
       <Col sm="12">
