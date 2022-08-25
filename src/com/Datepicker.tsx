@@ -16,11 +16,19 @@ const Datepicker: React.FC<Props> = ({ name, min, max, value }) => {
 
   useEffect(() => {
     document
-      .querySelector(".rsd__react-select-datepicker")
-      ?.classList.add("gap-2");
-    document.querySelector(".rsd__select-day")?.classList.add("form-select");
-    document.querySelector(".rsd__select-month")?.classList.add("form-select");
-    document.querySelector(".rsd__select-year")?.classList.add("form-select");
+      .querySelectorAll(".rsd__react-select-datepicker")
+      .forEach((item) => {
+        item.classList.add("gap-2");
+      });
+    document.querySelectorAll(".rsd__select-day").forEach((item) => {
+      item.classList.add("form-select");
+    });
+    document.querySelectorAll(".rsd__select-month").forEach((item) => {
+      item.classList.add("form-select");
+    });
+    document.querySelectorAll(".rsd__select-year").forEach((item) => {
+      item.classList.add("form-select");
+    });
   }, []);
 
   function onDateChange(date: Date | null) {
