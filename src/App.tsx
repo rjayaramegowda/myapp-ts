@@ -49,8 +49,7 @@ function App() {
       <h1>react-bootstrap-typeahead</h1>
       <AsynchronousSearching />
 
-      <h1 className="my-5">react-google-flight-datepicker</h1>
-      <h4>RangeDatePicker</h4>
+
     </Container>
   );
 }
