@@ -20,15 +20,14 @@ const Datepicker: React.FC<Props> = ({ name, min, max, value }) => {
       .forEach((item) => {
         item.classList.add("gap-2");
       });
-    document.querySelectorAll(".rsd__select-day").forEach((item) => {
-      item.classList.add("form-select");
-    });
-    document.querySelectorAll(".rsd__select-month").forEach((item) => {
-      item.classList.add("form-select");
-    });
-    document.querySelectorAll(".rsd__select-year").forEach((item) => {
-      item.classList.add("form-select");
-    });
+    document
+      .querySelectorAll(".rsd__react-select-datepicker select")
+      .forEach((item: any) => {
+        item.classList.add("form-select");
+        item.setAttribute("required", "true");
+        item?.options[0].removeAttribute("disabled");
+        item?.options[0].setAttribute("value", "");
+      });
   }, []);
 
   function onDateChange(date: Date | null) {
