@@ -1,14 +1,17 @@
-import React, { useEffect } from "react";
-import { Container } from "react-bootstrap";
+import * as React from "react";
+import MyButton from "./com/MyButton";
 
-function App() {
-  useEffect(() => {
-    console.log("init()");
-  }, []);
+export interface IAppProps {}
+
+function App(props: IAppProps) {
+  function handleClic(e: React.BaseSyntheticEvent) {
+    console.log("Clikced!", e.target);
+  }
   return (
-    <Container>
-      <h1>React Bootstrap</h1>
-    </Container>
+    <div className="container">
+      <h1>Welcome</h1>
+      <MyButton onClick={handleClic} variant="success" />
+    </div>
   );
 }
 
