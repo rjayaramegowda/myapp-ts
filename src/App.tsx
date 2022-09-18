@@ -5,6 +5,9 @@ import FlightIcon from "@mui/icons-material/Flight";
 import HotelIcon from "@mui/icons-material/Hotel";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import AsynchronousSearching from "./com/AsynchronousSearching";
+import MyDate from "./com/MyDate";
+import NativePickers from "./com/NativePickers";
+import CustomDateRangeInputs from "./com/CustomDateRangeInputs";
 
 function App() {
   useEffect(() => {
@@ -48,8 +51,7 @@ function App() {
 
       <h1>react-bootstrap-typeahead</h1>
       <AsynchronousSearching />
-
-
+      <CustomDateRangeInputs />
     </Container>
   );
 }
